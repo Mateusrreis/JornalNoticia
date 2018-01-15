@@ -1,0 +1,112 @@
+﻿@model JornalNoticia.Models.Noticia
+
+@{
+    ViewBag.Title = "About";
+}
+<br />
+<br />
+<script type="text/javascript">
+
+    function desbloquear()
+    {
+        document.getElementById("enviar").disabled = true;
+        document.getElementById("Submit").disabled = false;
+        document.getElementById("desbloqueio").disabled = true;
+
+    }
+    
+    function send() {
+        alert("Mensagem enviada");
+
+        document.getElementById("publicar").submit();
+
+
+    }
+    function habilitar() {
+        document.getElementById("enviar").disabled = false;
+        document.getElementById("Submit").disabled = true;
+        document.getElementById("desbloqueio").disabled = false;
+        document.getElementsByName("Submit").submit();
+    }
+</script>
+
+<div class="row" >
+
+    <div class="col-sm-12">
+        <div class="container">
+            @{
+                var op = ViewBag.Upload;
+                if (op != null)
+                {
+                    <form method="post" id="publicar" action="File" disabled>
+                        <div class="form-group">
+                            <label for="publicar">Publicação</label>
+                            <input type="text" class="form-control" id="titulo" placeholder="Digite aqui seu título" name="titulo">
+                            <small id="emailHelp" class="form-text text-muted">Digite o titulo da sua publicação.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="corponoticia">Texto Completo</label>
+                            <Textarea class="form-control" linhas="15" cols="8" id="corponoticia" placeholder="Escreva sua publicação" name="corponoticia"></Textarea>
+                        </div>
+
+                        <button type="button" id="form" class="btn btn-primary" onclick="send()">Enviar</button>
+                    </form>
+                }
+                   
+                       
+                        
+                       }
+            
+
+
+
+           
+            <br />
+            <br />
+           
+            <br />
+
+            <div class="row">
+    
+                <div class="col-sm-12">
+                    @using (Html.BeginForm("About", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+
+                        <input type="file" name="FileUpload" accept="image/*" />
+                        <input type="submit" name="Submit" id="Submit" value="Upload" />
+                    }
+
+                  
+                </div>
+              
+            </div>
+
+            @{
+                var status = ViewBag.status;
+                if (op == null && status == "Funcionou")
+                {
+                    <script>
+                        document.getElementById("titulo").disabled = true;
+                        document.getElementById("corponoticia").disabled = true;
+                    </script>
+
+                            <div class="container">
+
+                                <div class="alert alert-success">
+                                    <strong>Sucesso!</strong>Enviado para o banco de dados.
+                                </div>
+                            </div>
+
+                }
+                else
+                {
+
+                }
+
+            }
+
+
+
+        </div>
+    </div>
+</div>
