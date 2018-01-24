@@ -457,6 +457,10 @@ header.masthead p {
     padding-top: 10px;
 }
 
+div #estilo .jumbotron.jumbotron-fluid {
+    
+}
+
 .content-header {
     height: 65px;
     line-height: 65px;
@@ -490,3 +494,7 @@ header.masthead p {
 li #textopersonalisado .dropdown .nav-item {
     bottom: -6px;
 }
+p #fonte{
+    color:black;
+}
+
