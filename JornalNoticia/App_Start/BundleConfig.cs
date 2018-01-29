@@ -31,7 +31,7 @@ namespace JornalNoticia
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/creative.css", "~/Content/magnific-popup.css"));
+                      "~/Content/Site.css", "~/Content/magnific-popup.css"));
 
             bundles.Add(new StyleBundle("~/Content/font").Include(
                     "~/Content/font-awesome.css"));

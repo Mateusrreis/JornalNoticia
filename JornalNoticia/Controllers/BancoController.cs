@@ -9,11 +9,13 @@ namespace JornalNoticia.Controllers
     public class BancoController : Controller
     {
         // GET: Banco
-        [HttpPost]
-        public ActionResult DadosNoticia(int idnoticia,string noticia)
+       public ActionResult Index2()
         {
-
             return View();
+        }
+        public ActionResult Redirecionar()
+        {
+           return RedirectToAction("About", "Home");
         }
     }
 }

@@ -20,6 +20,8 @@ namespace JornalNoticia.Controllers
             
         }
 
+        
+
         public ActionResult Index()
         {
 

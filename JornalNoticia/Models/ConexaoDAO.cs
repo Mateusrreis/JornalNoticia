@@ -61,7 +61,7 @@ namespace JornalNoticia.Models
                     Noticia noticia = new Noticia();
                     noticia.Idnoticia = Convert.ToInt32(reader["idnoticia"].ToString());
                     noticia.Titulo = Convert.ToString(reader["titulo"].ToString());
-                    noticia.Corponoticia = Convert.ToString(reader["publicacao"].ToString());
+                    noticia.Corponoticia = Noticia.TruncateString(Convert.ToString(reader["publicacao"].ToString()),40,Noticia.TruncateOptions.None);
                     noticia.caminhoimg = Convert.ToString(reader["caminhoimg"].ToString());
                     listadados.Add(noticia);
                 }
