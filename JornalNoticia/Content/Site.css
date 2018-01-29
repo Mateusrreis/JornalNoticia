@@ -25,18 +25,26 @@ p.lead#texto_jumbo {
     color: rgb(20,20,160);
     font-weight: 600;
 }
-div#slide {
-    box-shadow: 2px 6px 5px rgba(50, 50, 50, 0.5);
-    
+.carousel-item > img {
+    position: relative;
+    top: 0;
+    left: 0;
+    min-width: 100%;
    
+    max-height: 25rem;
+}
+img.second-slide {
+    width: auto;
+    height: auto;
+    background-size: cover;
+    
 }
 
 div#ajuste {
     box-shadow: 2px 6px 5px rgba(50, 50, 50, 0.5);
-    align-items:center;
-    margin-right:50px;
-    margin-left:130px;
-    
+    align-items: center;
+    margin-right: 50px;
+    margin-left: 130px;
 }
 a#botao_personalizado {
     background-color: white;
@@ -44,7 +52,7 @@ a#botao_personalizado {
     border: 1px solid black;
     color: black;
 }
-    a#botao_personalizado:hover {
+a#botao_personalizado:hover {
         background-color: rgb(237,110,1);
         
         border: 1px solid black;
@@ -56,5 +64,8 @@ div#ajustedomenu {
     margin-right: 30px;
     padding-left: 30px;
     filter: alpha(opacity=80)
+}
+li#textopersonalisado.dropdown.nav-item{
+    padding-top: 8px;
 }
 
