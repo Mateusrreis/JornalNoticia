@@ -7,18 +7,17 @@
     <meta name="author" content="">
     <title>SMO</title>
     <!-- Bootstrap core CSS -->
-   
-    @Styles.Render("~/Content/css");
+
+    @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/font")
     <!-- Custom fonts for this template -->
-    
+
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
     <!-- Plugin CSS -->
-    
     <!-- Custom styles for this template -->
-   
-   
+
+
 </head>
 <body id="page-top">
     <!-- Navigation -->
@@ -26,8 +25,8 @@
         <div class="container">
             <a class="navbar-brand js-scroll-trigger" href="#page-top">SMO</a>
             <!-- Brand/logo -->
-            <img src='img/logo-01.png' class='img-rounded navbar-brand'/>
-            
+            <img src='img/logo-01.png' class='img-rounded navbar-brand' />
+
 
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -35,39 +34,44 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#about">Sobre</a>
+                        <a class="nav-link js-scroll-trigger" href="#about">Quem somos</a>
                     </li>
-                    
+
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+                        <a class="nav-link js-scroll-trigger" href="#portfolio">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#contact">Contato</a>
+                        <a class="nav-link js-scroll-trigger" href="Home/About">Newsletter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#documents">Documentos</a>
                     </li>
                     <li class="dropdown nav-item" id="textopersonalisado">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="caret" id="posicaomenu"><b>Login</b></span></a>
                         <ul id="login-dp" class="dropdown-menu">
                             <li>
+
+
                                 <div class="row">
                                     <div class="col-md-12">
-                                       
-                                        <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
-                                            <div class="form-group">
-                                               
-                                                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Usuario" required>
-                                            </div>
-                                            <div class="form-group">
-                                                
-                                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Senha" required>
-|
-                                            </div>
-                                           
+                                        <div id="ajustedomenu">
+                                            <form class="form" role="form" action="Banco/Index2" accept-charset="UTF-8" id="login-nav">
+                                                <div class="form-group">
+
+                                                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Usuario" size="60" required>
+                                                </div>
+                                                <div class="form-group">
+
+                                                    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Senha" size="60" required>
+
+                                                </div>
+
                                                 <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-                                            
-                                            
-                                        </form>
+
+
+                                            </form>
+                                        </div>
                                     </div>
-                                   
                                 </div>
                             </li>
                         </ul>
@@ -76,204 +80,24 @@
             </div>
         </div>
     </nav>
-    <div class="row">
-        <div class="col-lg-12 text-center">
-            @RenderBody()
-        
-        </div>
-    </div>
-    <section class="bg-primary" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="section-heading text-white">Temos o que voc&ecirc; precisa!</h2>
-                    <hr class="light my-4">
-                    <p class="text-faded mb-4">bla blablablablablablablabla blablablablabla blablablabla blablablablabla blablablabla blablablablablabla blablablabla blablablabla!</p>
-                    <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Servi&ccedil;os</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="services">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">At Your Service</h2>
-                    <hr class="my-4">
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="service-box mt-5 mx-auto">
-                        <i class="fa fa-4x fa-diamond text-primary mb-3 sr-icons"></i>
-                        <h3 class="mb-3">Serviços</h3>
-                        <p class="text-muted mb-0">Our templates are updated regularly so they don't break.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="service-box mt-5 mx-auto">
-                        <i class="fa fa-4x fa-paper-plane text-primary mb-3 sr-icons"></i>
-                        <h3 class="mb-3">Ready to Ship</h3>
-                        <p class="text-muted mb-0">You can use this theme as is, or you can make changes!</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="service-box mt-5 mx-auto">
-                        <i class="fa fa-university fa-3x" aria-hidden="true"></i>
-                        <h3 class="mb-3">Newsletter</h3>
-                        <p class="text-muted mb-0">We update dependencies to keep things fresh.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="service-box mt-5 mx-auto">
-                        <i class="fa fa-4x fa-heart text-primary mb-3 sr-icons"></i>
-                        <h3 class="mb-3">Made with Love</h3>
-                        <p class="text-muted mb-0">You have to make your websites with love these days!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="p-0" id="portfolio">
-        <div class="container-fluid p-0">
-            <div class="row no-gutters popup-gallery">
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="img/portfolio/fullsize/1.jpg">
-                        <img class="img-fluid" src="img/portfolio/thumbnails/1.jpg" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="img/portfolio/fullsize/2.jpg">
-                        <img class="img-fluid" src="img/portfolio/thumbnails/2.jpg" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="img/portfolio/fullsize/3.jpg">
-                        <img class="img-fluid" src="img/portfolio/thumbnails/3.jpg" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="img/portfolio/fullsize/4.jpg">
-                        <img class="img-fluid" src="img/portfolio/thumbnails/4.jpg" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="img/portfolio/fullsize/5.jpg">
-                        <img class="img-fluid" src="img/portfolio/thumbnails/5.jpg" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="img/portfolio/fullsize/6.jpg">
-                        <img class="img-fluid" src="img/portfolio/thumbnails/6.jpg" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="bg-dark text-white">
-        <div class="container text-center">
-            <h2 class="mb-4">BLA BLA BLA BLA!</h2>
-        </div>
-    </section>
-    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="section-heading">Entre em contato!</h2>
-                    <hr class="my-4">
-                    <p class="mb-5">Bla BlaBla BlaBla BlaBla BlaBla BlaBla BlaBla BlaBla BlaBla BlaBla BlaBla BlaBla Bla!</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 ml-auto text-center">
-                    <i class="fa fa-phone fa-3x mb-3 sr-contact"></i>
-                    <p>(11) 2166-2300</p>
-                </div>
-                <div class="col-lg-4 mr-auto text-center">
-                    <i class="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
-                    <p>
-                        <a href="mailto:your-email@your-domain.com">smonec@snec.com.br</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-    @Scripts.Render("~/bundles/jquery");
-    @Scripts.Render("~/bundles/bootstrap");
-    @Scripts.Render("~/bundles/scroll");
-    @Scripts.Render("~/bundles/creative");
-   
-    <!-- Bootstrap core JavaScript -->
-   
 
-   
-    <!-- Plugin JavaScript -->
-   
+
+
+
+
+    @RenderBody()
+
     
-  
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/scroll")
+    @Scripts.Render("~/bundles/creative")
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- Plugin JavaScript -->
     <!-- Custom scripts for this template -->
-   
+
 </body>
 </html>
