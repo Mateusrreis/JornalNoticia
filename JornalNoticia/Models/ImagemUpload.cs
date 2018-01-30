@@ -10,10 +10,13 @@ namespace JornalNoticia.Models
 {
     public class ImagemUpload
     {
-        public  string  caminhoimagem { get; set; }
-        public string nomedaimagem { get; set; }
-       
-        
+        private  string  caminhoimagem { get; set; }
+        private string tipoimg { get; set; }
+        private int idimagem { get; set; }
+        private string situacao { get; set; }
+
+
+
         public string uploadimg(string caminhoimagem,string nomedaimagem)
         {
           
