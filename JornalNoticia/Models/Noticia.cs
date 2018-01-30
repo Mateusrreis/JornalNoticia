@@ -9,8 +9,11 @@ namespace JornalNoticia.Models
         public string Titulo { get; set; }
         [AllowHtml]
         public string Corponoticia { get; set; }
-        public string caminhoimg { get; set; }
-
+        public ImagemUpload imagem { get; set; }
+        public string situacao { get; set; }
+        public Area area { get; set; }
+        public Categoria categoria{ get; set;}
+        public DateTime dtaPublicacao { get; set; }
 
         public static string TruncateString(string valueToTruncate, int maxLength, TruncateOptions options)
         {

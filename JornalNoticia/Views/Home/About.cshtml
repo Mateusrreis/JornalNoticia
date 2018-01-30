@@ -62,7 +62,7 @@
                             <label for="corponoticia">Texto Completo</label>
                             <Textarea class="form-control" linhas="15" cols="8" id="corponoticia" placeholder="Escreva sua publicação" name="corponoticia"></Textarea>
                         </div>
-                        <input type="hidden" value="@ViewBag.Upload" name="caminhoimg" />
+                        <input type="hidden" value="@ViewBag.Upload" name="@Model.imagem.caminhoimagem" />
                         <button type="button" id="form" class="btn btn-primary" onclick="send()">Enviar</button>
                     </form>
                 }

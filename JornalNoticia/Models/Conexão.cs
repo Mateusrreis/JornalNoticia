@@ -5,20 +5,22 @@ namespace JornalNoticia.Models
 {
     public class Conexão
     {
-        
-         
-        public void conectar()
+
+        MySqlConnection bdConn;
+        public  MySqlConnection conectar()
         {
            
-           
+            bdConn = new MySqlConnection("Server=localhost;Database=teste;Uid=root;Pwd=gengar38");
+            return bdConn;
             //Verifica se a conexão está aberta
         }
-        public void desconectar()
+
+        public MySqlConnection desconectar()
         {
            
            
-                //bdConn.Close();
-               
+               bdConn.Close();
+               return bdConn;
     
 
             

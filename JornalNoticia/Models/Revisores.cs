@@ -7,10 +7,10 @@ namespace JornalNoticia.Models
 {
     public class Revisores
     {
-        private string usuarioRev { get; set; }
-        private string senha { get; set; }
-        private int idRevisores { get; set; }
-        private string situacao { get; set; }
-        private Area area { get; set; }
+        public string usuarioRev { get; set; }
+        public string senha { get; set; }
+        public int idRevisores { get; set; }
+        public string situacao { get; set; }
+        public Area area { get; set; }
     }
 }

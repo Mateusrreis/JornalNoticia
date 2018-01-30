@@ -7,8 +7,8 @@ namespace JornalNoticia.Models
 {
     public class Categoria
     {
-        private int idCategoria { get; set; }
-        private String tipCategria { get; set; }
-        private String situacao { get; set; }
+        public int IdCategoria { get; set; }
+        public String TipCategria { get; set; }
+        public String Situacao { get; set; }
     }
 }
