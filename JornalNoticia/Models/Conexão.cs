@@ -1,21 +1,21 @@
-﻿using System.Data;
-using MySql.Data.MySqlClient;
+﻿using System.Data.SqlClient;
+
 
 namespace JornalNoticia.Models
 {
     public class Conexão
     {
 
-        MySqlConnection bdConn;
-        public  MySqlConnection conectar()
+        SqlConnection bdConn;
+        public  SqlConnection conectar()
         {
            
-            bdConn = new MySqlConnection("Server=localhost;Database=teste;Uid=root;Pwd=gengar38");
+            bdConn = new SqlConnection("Server=DESKTOP-M8FGI40;Database=Jornal;Trusted_Connection = yes;");
             return bdConn;
             //Verifica se a conexão está aberta
         }
 
-        public MySqlConnection desconectar()
+        public SqlConnection desconectar()
         {
            
            

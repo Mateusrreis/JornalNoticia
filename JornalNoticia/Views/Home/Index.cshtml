@@ -17,7 +17,7 @@
              @foreach (var item in Model)
              {
                 <div class="carousel-item">
-                    <img class="second-slide" src="@item.caminhoimg" alt="Second slide">
+                    <img class="second-slide" src="@item.imagem.caminhoimagem" alt="Second slide">
                     <div class="container">
                         <div class="carousel-caption">
                             <h1>@item.Titulo</h1>
@@ -91,7 +91,7 @@
                        @foreach (var item in Model)
                         {
                             <div class="carousel-item">
-                                <img class=" d-block img-fluid" src="@item.caminhoimg" alt="Teste" height="150" width="300">
+                                <img class=" d-block img-fluid" src="@item.imagem.caminhoimagem" alt="Teste" height="150" width="300">
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>@item.Titulo</h5>
                                     <p id="fonte">@item.Corponoticia</p>
