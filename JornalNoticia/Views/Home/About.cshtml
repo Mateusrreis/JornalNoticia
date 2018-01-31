@@ -27,20 +27,19 @@
         document.getElementById("desbloqueio").disabled = true;
 
     }
+    function selecionar()
+    {
+        var selecionado = document.getElementById("categoria");
+        var item = selecionado.options[selecionado.selectedIndex].value;
+        document.getElementById("itemcategoria").value = item;
+    }
 
-    function send() {
+    function  send(){
         alert("Mensagem enviada");
-
-        document.getElementById("publicar").submit();
         
-            $ ( function () {
-                // Dropdownlist Selectedchange event
-                $('#categoria').change(function () {
-                    
-                    $text($("#UserId").val());
-                })
-            })
-
+      
+        
+        document.getElementById("publicar").submit();
 
 
     }
@@ -73,17 +72,18 @@
                         </div>
                         <div class="form-group">
                             <label for="combobox"></label>
-                            <select name="categoria" id="categoria">
+                            <select name="categoria" id="categoria" onchange="selecionar()">
                                 @foreach (List<JornalNoticia.Models.Noticia> lista  in Model)
                                 {
                                     foreach (var item in lista)
                                     {
-                                        <option value="@item.categoria.IdCategoria" name="categoria">@item.categoria.TipCategria</option>
+                                        <option value="@item.categoria.IdCategoria" name="categoria" >@item.categoria.TipCategria</option>
                                     }
                                 }
                             </select>
                         </div>
-                        <input type="hidden" value="@ViewBag.Upload" name="imagem.caminhoimagem" />
+                        <input type="hidden" value="@ViewBag.Upload" name="caminhoimagem" />
+                        <input type="hidden" name="IdCategoria" id="itemcategoria" />
                         <button type="button" id="form" class="btn btn-primary" onclick="send()">Enviar</button>
                     </form>
                 }

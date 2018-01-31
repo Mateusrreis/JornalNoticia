@@ -58,12 +58,12 @@ namespace JornalNoticia.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult File(Noticia noticia)
+        public ActionResult File(Noticia noticia,ImagemUpload imagem,Categoria categoria)
         {
             if (noticia.Titulo != String.Empty)
             {
                 int valor = 0;
-
+                
                 ConexaoDAO conexão = new ConexaoDAO();
               //  noticia.caminhoimg = img.caminhoimagem;
                 valor = conexão.inserir(noticia);
@@ -102,6 +102,7 @@ namespace JornalNoticia.Controllers
         public ActionResult About(Noticia noticia)
         {
             var categoria = listaPai;
+
             if (Request.Files.Count > 0)
             {
                 
