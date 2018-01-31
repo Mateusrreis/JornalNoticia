@@ -80,7 +80,7 @@ namespace JornalNoticia.Models
             return numerodelinhas;
 
         }
-
+        
 
 
 
@@ -94,7 +94,7 @@ namespace JornalNoticia.Models
             {
                 bdConn.Open();
                 
-                SqlCommand cmd = new SqlCommand("insert into Publicação(Titulo,CorpoNoticia,DtaPublicacao,idCategoria,idArea) Values(@Titulo,@Publicacao,(SELECT DATE_FORMAT(Now(),' %d %M %Y %H:%i')),(Select idCategoria from Categoria where idCategoria = @Categoria),(Select idArea from Area where idArea = @Area))", bdConn);
+                SqlCommand cmd = new SqlCommand("insert into Publicação(Titulo,CorpoNoticia,DtaPublicacao,idCategoria,idArea) Values(@Titulo,@Publicacao,(Select DAY(GETDATE()), MONTH(GETDATE()), YEAR(GETDATE()),CONVERT (time, SYSDATETIME())),(Select idCategoria from Categoria where idCategoria = @Categoria),(Select idArea from Area where idArea = @Area))", bdConn);
                 cmd.Parameters.AddWithValue("@Titulo", noticia.Titulo);
                 cmd.Parameters.AddWithValue("@Publicacao", noticia.Corponoticia);
                 cmd.Parameters.AddWithValue("@Categoria",noticia.categoria.IdCategoria);
@@ -165,6 +165,44 @@ namespace JornalNoticia.Models
 
 
 
+
+        }
+        public List<Noticia> carregandoCategoria()
+        {
+            bdConn = conexao.conectar();
+            List<Noticia> listadados = new List<Noticia>();
+            try
+            {
+                bdConn.Open();
+
+                SqlCommand cmd = new SqlCommand("select idCategoria,tipCategoria from Categoria", bdConn);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+
+                while (reader.Read())
+                {
+                    Noticia noticia = new Noticia();
+                    noticia.categoria.IdCategoria = Convert.ToInt32(reader["idCategoria"].ToString());
+                    noticia.categoria.TipCategria = Convert.ToString(reader["tipCategoria"].ToString());
+                    listadados.Add(noticia);
+                }
+                reader.Close();
+
+
+
+
+
+
+            }
+            catch (SqlException ex)
+            {
+                string error = ex.Message;
+                bdConn.Close();
+
+
+            }
+            return listadados;
 
         }
 

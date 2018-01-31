@@ -1,18 +1,21 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace JornalNoticia.Models
 {
     public class Noticia
-    {
+    {   
+        [Key]
         public int Idnoticia { get; set; }
         public string Titulo { get; set; }
-        [AllowHtml]
+        [AllowHtml] 
         public string Corponoticia { get; set; }
-        public ImagemUpload imagem { get; set; }
+        public ImagemUpload imagem = new ImagemUpload();
         public string situacao { get; set; }
-        public Area area { get; set; }
-        public Categoria categoria{ get; set;}
+        public Area area = new Area(); 
+        public Categoria categoria = new Categoria();
+        
         public DateTime dtaPublicacao { get; set; }
 
         public static string TruncateString(string valueToTruncate, int maxLength, TruncateOptions options)

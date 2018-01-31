@@ -1,8 +1,4 @@
-
--- Geração de Modelo físico
--- Sql ANSI 2003 - brModelo.
-
-use publicacoes
+ï»¿
 
 CREATE TABLE Revisores_Adm (
 usuarioRev VARCHAR(90) not null unique,
@@ -26,10 +22,11 @@ Situacao VARCHAR(60),
 idPublicacao INT
 )
 
-CREATE TABLE Publicação (
+CREATE TABLE PublicaÃ§Ã£o (
 Titulo VARCHAR(90) not null,
-CorpoNoticia varchar(8000) not null,--Texto grande 
+CorpoNoticia varchar(MAX) not null,--Texto grande 
 idPublicacao int PRIMARY KEY Identity (1,1),
+revisado varchar(60),
 Situacao VARCHAR(60),
 DtaPublicacao DateTime,
 idCategoria int not null,
@@ -44,8 +41,18 @@ Situacao VARCHAR(60)
 )
 
 ALTER TABLE Revisores_Adm ADD FOREIGN KEY(idArea) REFERENCES Area (idArea)
-ALTER TABLE imagens ADD FOREIGN KEY(idPublicacao) REFERENCES Publicação (idPublicacao)
-ALTER TABLE Publicação ADD FOREIGN KEY(idCategoria) REFERENCES Categoria (idCategoria)
+ALTER TABLE imagens ADD FOREIGN KEY(idPublicacao) REFERENCES PublicaÃ§Ã£o (idPublicacao)
+ALTER TABLE PublicaÃ§Ã£o ADD FOREIGN KEY(idCategoria) REFERENCES Categoria (idCategoria)
 
-insert into Categoria(tipCategoria) values('Negocios')
-select*from Publicação
+select * from PublicaÃ§Ã£o
+SELECT DATE_FORMAT(Now(),' %d %M %Y %H:%i')
+select GETDATE ()
+SELECT SYSDATETIME()
+Select DAY(GETDATE()), MONTH(GETDATE()), YEAR(GETDATE()),CONVERT (time, SYSDATETIME())
+
+select * from PublicaÃ§Ã£o
+
+insert into Categoria(tipCategoria) values('Empresarial')
+insert into Categoria(tipCategoria) values('NegÃ³cios')
+
+Select * from Categoria 

@@ -13,11 +13,14 @@ namespace JornalNoticia.Controllers
     {
         ImagemUpload img = new ImagemUpload();
         private readonly List<Noticia> restaurandovalor ;
-        
+        private readonly List<Noticia> listacategoria;
+        private readonly List<List<Noticia>> listaPai = new List<List<Noticia>>();
         public HomeController()
         {
             restaurandovalor = new ConexaoDAO().consultarNoticia();
-            
+            listacategoria = new ConexaoDAO().carregandoCategoria();
+            listaPai.Add(restaurandovalor);
+            listaPai.Add(listacategoria);
         }
 
         
@@ -25,7 +28,7 @@ namespace JornalNoticia.Controllers
         public ActionResult Index()
         {
 
-            var ultimasnoticias = restaurandovalor;
+            var ultimasnoticias = listaPai;
             return View(ultimasnoticias);
         }
 
@@ -34,7 +37,7 @@ namespace JornalNoticia.Controllers
         
         public ActionResult About()
         {
-           
+            var categoria = listaPai;
             if (Request.Files.Count > 0)
             {
                
@@ -48,7 +51,7 @@ namespace JornalNoticia.Controllers
           
             
         
-            return View();
+            return View(categoria);
         }
 
 
@@ -98,6 +101,7 @@ namespace JornalNoticia.Controllers
         [HttpPost]
         public ActionResult About(Noticia noticia)
         {
+            var categoria = listaPai;
             if (Request.Files.Count > 0)
             {
                 
@@ -106,13 +110,13 @@ namespace JornalNoticia.Controllers
                 string valorfinal = img.carregandoimg(file, caminhoimagem);
                
                 ViewBag.Upload = valorfinal;
-               
+                
             }
            
 
 
 
-            return View();
+            return View(categoria);
         }
 
         public ActionResult Contact()

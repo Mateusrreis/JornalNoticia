@@ -1,0 +1,1 @@
+﻿select idCategoria,tipCategoria from Categoria

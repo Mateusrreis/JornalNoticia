@@ -1,4 +1,5 @@
-﻿@model JornalNoticia.Models.Noticia
+﻿@model List<List<JornalNoticia.Models.Noticia>>
+
 
 @{
     ViewBag.Title = "About";
@@ -12,26 +13,34 @@
         <div class="container">
             <h1 class="display-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Olá Mundo!</font></font></h1>
             <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Este é um modelo para um simples site de marketing ou informação. </font><font style="vertical-align: inherit;">Inclui uma grande frase chamada de jumbotron e três partes de conteúdo de apoio. </font><font style="vertical-align: inherit;">Use-o como ponto de partida para criar algo mais único.</font></font></p>
-          
+
         </div>
     </div>
 
-    
+
 </main>
 <script type="text/javascript">
 
-    function desbloquear()
-    {
+    function desbloquear() {
         document.getElementById("enviar").disabled = true;
         document.getElementById("Submit").disabled = false;
         document.getElementById("desbloqueio").disabled = true;
 
     }
-    
+
     function send() {
         alert("Mensagem enviada");
 
         document.getElementById("publicar").submit();
+        
+            $ ( function () {
+                // Dropdownlist Selectedchange event
+                $('#categoria').change(function () {
+                    
+                    $text($("#UserId").val());
+                })
+            })
+
 
 
     }
@@ -43,7 +52,7 @@
     }
 </script>
 
-<div class="row" >
+<div class="row">
 
     <div class="col-sm-12">
         <div class="container">
@@ -56,13 +65,25 @@
                             <label for="publicar">Publicação</label>
                             <input type="text" class="form-control" id="titulo" placeholder="Digite aqui seu título" name="titulo">
                             <small id="emailHelp" class="form-text text-muted">Digite o titulo da sua publicação.</small>
-                            
+
                         </div>
                         <div class="form-group">
                             <label for="corponoticia">Texto Completo</label>
                             <Textarea class="form-control" linhas="15" cols="8" id="corponoticia" placeholder="Escreva sua publicação" name="corponoticia"></Textarea>
                         </div>
-                        <input type="hidden" value="@ViewBag.Upload" name="@Model.imagem.caminhoimagem" />
+                        <div class="form-group">
+                            <label for="combobox"></label>
+                            <select name="categoria" id="categoria">
+                                @foreach (List<JornalNoticia.Models.Noticia> lista  in Model)
+                                {
+                                    foreach (var item in lista)
+                                    {
+                                        <option value="@item.categoria.IdCategoria" name="categoria">@item.categoria.TipCategria</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <input type="hidden" value="@ViewBag.Upload" name="imagem.caminhoimagem" />
                         <button type="button" id="form" class="btn btn-primary" onclick="send()">Enviar</button>
                     </form>
                 }
@@ -86,14 +107,14 @@
 
 
             }
-            
 
 
 
-           
+
+
             <br />
             <br />
-           
+
             <br />
 
             <div class="row">
@@ -102,7 +123,7 @@
 
                 @{
                     var status = ViewBag.status;
-                    
+
                     if (op == null && status == "Funcionou")
                     {
                         <script>
