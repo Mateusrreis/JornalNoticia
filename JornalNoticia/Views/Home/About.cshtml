@@ -1,5 +1,4 @@
-﻿@model List<List<JornalNoticia.Models.Noticia>>
-
+﻿@model JornalNoticia.Models.Noticia
 
 @{
     ViewBag.Title = "About";
@@ -71,19 +70,17 @@
                             <Textarea class="form-control" linhas="15" cols="8" id="corponoticia" placeholder="Escreva sua publicação" name="corponoticia"></Textarea>
                         </div>
                         <div class="form-group">
-                            <label for="combobox"></label>
-                            <select name="categoria" id="categoria" onchange="selecionar()">
-                                @foreach (List<JornalNoticia.Models.Noticia> lista  in Model)
-                                {
-                                    foreach (var item in lista)
-                                    {
-                                        <option value="@item.categoria.IdCategoria" name="categoria" >@item.categoria.TipCategria</option>
-                                    }
-                                }
-                            </select>
+                            <label for="combobox">Categoria</label>
+                           @Html.DropDownListFor(model => model.categoria.IdCategoria, ViewBag.categoria as SelectList,"Selecione a Categoria", new { @class = "form-control" , @id= "combobox"})
+
                         </div>
-                        <input type="hidden" value="@ViewBag.Upload" name="caminhoimagem" />
-                        <input type="hidden" name="IdCategoria" id="itemcategoria" />
+                        <div class="form-group">
+                            <label for="Area">Area</label>
+                            @Html.DropDownListFor(model => model.area.IdArea, ViewBag.area as SelectList, "Selecione Area", new { @class = "form-control", @id = "Area" })
+
+                        </div>
+                        <input type="hidden" value="@ViewBag.Upload" name="imagem.caminhoimagem" />
+                        
                         <button type="button" id="form" class="btn btn-primary" onclick="send()">Enviar</button>
                     </form>
                 }
@@ -111,7 +108,8 @@
 
 
 
-
+            
+            
             <br />
             <br />
 

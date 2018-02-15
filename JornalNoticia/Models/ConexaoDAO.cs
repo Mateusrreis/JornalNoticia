@@ -2,8 +2,7 @@
 using System.Data.SqlClient;
 
 using System.Collections.Generic;
-
-
+using System.Data;
 
 namespace JornalNoticia.Models
 {
@@ -69,8 +68,10 @@ namespace JornalNoticia.Models
                 SqlCommand cmd = new SqlCommand("insert into Area(NomeArea) Values(@Area)", bdConn);
 
                 cmd.Parameters.AddWithValue("@Area", area.NomeArea);
-                numerodelinhas = cmd.ExecuteNonQuery();
+               // numerodelinhas = cmd.ExecuteNonQuery();
                 bdConn.Close();
+
+
             }
             catch (SqlException ex)
             {
@@ -167,27 +168,77 @@ namespace JornalNoticia.Models
 
 
         }
-        public List<Noticia> carregandoCategoria()
+        public List<Categoria> carregandoCategoria()
         {
             bdConn = conexao.conectar();
-            List<Noticia> listadados = new List<Noticia>();
+            List<Categoria> listadados = new List<Categoria>();
             try
             {
-                bdConn.Open();
 
+                bdConn.Open();
                 SqlCommand cmd = new SqlCommand("select idCategoria,tipCategoria from Categoria", bdConn);
 
-                SqlDataReader reader = cmd.ExecuteReader();
+               // SqlDataReader reader = cmd.ExecuteReader();
 
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
 
-                while (reader.Read())
+                
+                adapter.Fill(dt);
+                bdConn.Close();
+
+                foreach (DataRow dr in dt.Rows)
                 {
-                    Noticia noticia = new Noticia();
-                    noticia.categoria.IdCategoria = Convert.ToInt32(reader["idCategoria"].ToString());
-                    noticia.categoria.TipCategria = Convert.ToString(reader["tipCategoria"].ToString());
-                    listadados.Add(noticia);
+                    listadados.Add(new Categoria
+                    {
+                        IdCategoria = Convert.ToInt32(dr["idCategoria"]),
+                        TipCategria = Convert.ToString(dr["tipCategoria"])
+                    });
                 }
-                reader.Close();
+
+
+                
+
+
+
+            }
+            catch (SqlException ex)
+            {
+                string error = ex.Message;
+                bdConn.Close();
+
+
+            }
+            return listadados;
+
+        }
+        public List<Area> carregandoArea()
+        {
+            bdConn = conexao.conectar();
+            List<Area> listadados = new List<Area>();
+            try
+            {
+
+                bdConn.Open();
+                SqlCommand cmd = new SqlCommand("select idArea,NomeArea from Area", bdConn);
+
+                // SqlDataReader reader = cmd.ExecuteReader();
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+
+
+                adapter.Fill(dt);
+                bdConn.Close();
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    listadados.Add(new Area
+                    {
+                        IdArea = Convert.ToInt32(dr["idArea"]),
+                        NomeArea = Convert.ToString(dr["NomeArea"])
+                    });
+                }
 
 
 
