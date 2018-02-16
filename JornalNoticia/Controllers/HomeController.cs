@@ -47,11 +47,7 @@ namespace JornalNoticia.Controllers
                   "categoria.IdCategoria",
                   "categoria.TipCategria"
                );*/
-            
-            
-
-
-
+    
 
             if (Request.Files.Count > 0)
             {
@@ -100,18 +96,10 @@ namespace JornalNoticia.Controllers
                 }
 
 
-                
-              
-
             }
 
             return View("About");
         }
-
-
-
-
-
 
         [HttpPost]
         public ActionResult About(Noticia noticia)
@@ -124,7 +112,7 @@ namespace JornalNoticia.Controllers
                 var file = Request.Files[0];
                 string caminhoimagem = Server.MapPath("~/Images/");
                 string valorfinal = img.carregandoimg(file, caminhoimagem);
-               
+                ViewBag.tipoimg = img.tipoimg;
                 ViewBag.Upload = valorfinal;
                 
             }
@@ -140,6 +128,22 @@ namespace JornalNoticia.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        [HttpPost]
+        public ActionResult Usuario(string usuario,string senha)
+        {
+            ConexaoDAO verificar = new ConexaoDAO();
+            int numberrow = 0;
+            numberrow = verificar.Usuarios(usuario,senha);
+            if(numberrow>0)
+            {
+               return RedirectToAction("About2", "Banco");
+
+            }
+            else
+            {
+               return View("Index");
+            }
         }
     }
 }
