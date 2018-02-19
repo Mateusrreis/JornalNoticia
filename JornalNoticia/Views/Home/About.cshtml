@@ -1,5 +1,7 @@
 ﻿@model JornalNoticia.Models.Noticia
 
+
+
 @{
     ViewBag.Title = "About";
 }
@@ -26,18 +28,17 @@
         document.getElementById("desbloqueio").disabled = true;
 
     }
-    function selecionar()
-    {
-        var selecionado = document.getElementById("categoria");
-        var item = selecionado.options[selecionado.selectedIndex].value;
-        document.getElementById("itemcategoria").value = item;
-    }
+    /* function selecionar() {
+         var selecionado = document.getElementById("categoria");
+         var item = selecionado.options[selecionado.selectedIndex].value;
+         document.getElementById("itemcategoria").value = item;
+     }*/
 
-    function  send(){
+    function send() {
         alert("Mensagem enviada");
-        
-      
-        
+
+
+
         document.getElementById("publicar").submit();
 
 
@@ -58,6 +59,7 @@
                 var op = ViewBag.Upload;
                 if (op != null)
                 {
+
                     <form method="post" id="publicar" action="File" disabled>
                         <div class="form-group">
                             <label for="publicar">Publicação</label>
@@ -70,18 +72,24 @@
                             <Textarea class="form-control" linhas="15" cols="8" id="corponoticia" placeholder="Escreva sua publicação" name="corponoticia"></Textarea>
                         </div>
                         <div class="form-group">
-                            <label for="combobox">Categoria</label>
-                           @Html.DropDownListFor(model => model.categoria.IdCategoria, ViewBag.categoria as SelectList,"Selecione a Categoria", new { @class = "form-control" , @id= "combobox"})
+                            <label for="categoria">Categoria</label>
+                            <!-- <select name="categoria.IdCategoria" id="categoria">
+                               foreach (List<JornalNoticia.Models.Noticia> lista in Model)
+                                {
+                                    foreach (var item in lista)
+                                    {
+                                        <option value="item.categoria.IdCategoria" name="categoria">item.categoria.TipCategria</option>
+                                    }
+                                }
+                            </select>-->
 
+                            @Html.DropDownList("categoria.TipCategria", new SelectList(ViewBag.teste));
+                          
                         </div>
-                        <div class="form-group">
-                            <label for="Area">Area</label>
-                            @Html.DropDownListFor(model => model.area.IdArea, ViewBag.area as SelectList, "Selecione Area", new { @class = "form-control", @id = "Area" })
 
-                        </div>
+
                         <input type="hidden" value="@ViewBag.Upload" name="imagem.caminhoimagem" />
-                        <input type="hidden" value="@ViewBag.tipoimg" name="imagem.tipoimg" />
-                        
+
                         <button type="button" id="form" class="btn btn-primary" onclick="send()">Enviar</button>
                     </form>
                 }
@@ -109,8 +117,7 @@
 
 
 
-            
-            
+
             <br />
             <br />
 

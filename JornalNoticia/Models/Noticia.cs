@@ -11,9 +11,9 @@ namespace JornalNoticia.Models
         public string Titulo { get; set; }
         [AllowHtml] 
         public string Corponoticia { get; set; }
-        public ImagemUpload imagem { get; set; } = new ImagemUpload();
-        public string situacao { get; set; }
-        public Area area { get; set; } = new Area();  
+        public ImagemUpload imagem { get; set; } = new ImagemUpload(); 
+         public string situacao { get; set; }
+        public Area area { get; set; } = new Area(); 
         public Categoria categoria { get; set; } = new Categoria();
         
         public DateTime dtaPublicacao { get; set; }

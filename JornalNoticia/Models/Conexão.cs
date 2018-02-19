@@ -10,7 +10,7 @@ namespace JornalNoticia.Models
         public  SqlConnection conectar()
         {
            
-            bdConn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\matheusrps\\Desktop\\Intranet\\JornalNoticia-Atualizado2\\JornalNoticia-Atualizado\\JornalNoticia\\App_Data\\Jornal.mdf;Integrated Security=True");
+            bdConn = new SqlConnection("Server=DESKTOP-M8FGI40;Database=Jornal;Trusted_Connection = yes");
             return bdConn;
             //Verifica se a conexão está aberta
         }

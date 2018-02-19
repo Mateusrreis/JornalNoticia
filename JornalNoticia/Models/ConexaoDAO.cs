@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data.SqlClient;
-
+using System.Web.Configuration;
 using System.Collections.Generic;
-using System.Data;
+using System.Web.WebPages.Html;
 
 namespace JornalNoticia.Models
 {
@@ -19,19 +19,12 @@ namespace JornalNoticia.Models
             try
             {
                 bdConn.Open();
-
-
-
-
-
-                SqlCommand cmd = new SqlCommand("insert into imagens(tipoimg,caminhoimg,idPublicacao) Values(@Imagem,@Caminho,(select idPublicacao from Publicação where idPublicacao = @idPublicar))", bdConn);
+                SqlCommand cmd = new SqlCommand("insert into imagens(tipoimg,caminhoimg) Values(@Imagem,@Caminho)", bdConn);
 
                 cmd.Parameters.AddWithValue("@Imagem", noticia.imagem.tipoimg);
                 cmd.Parameters.AddWithValue("@Caminho", noticia.imagem.caminhoimagem);
-                cmd.Parameters.AddWithValue("@idPublicar", noticia.Idnoticia);
                 numerodelinha = cmd.ExecuteNonQuery();
                 bdConn.Close();
-                
 
 
             }
@@ -50,6 +43,7 @@ namespace JornalNoticia.Models
             bdConn = conexao.conectar();
             try
             {
+               
                 bdConn.Open();
                 SqlCommand cmd = new SqlCommand("insert into Categoria(tipCategoria) Values(@Categoria)", bdConn);
 
@@ -75,10 +69,8 @@ namespace JornalNoticia.Models
                 SqlCommand cmd = new SqlCommand("insert into Area(NomeArea) Values(@Area)", bdConn);
 
                 cmd.Parameters.AddWithValue("@Area", area.NomeArea);
-               // numerodelinhas = cmd.ExecuteNonQuery();
+                numerodelinhas = cmd.ExecuteNonQuery();
                 bdConn.Close();
-
-
             }
             catch (SqlException ex)
             {
@@ -88,29 +80,27 @@ namespace JornalNoticia.Models
             return numerodelinhas;
 
         }
-
         
+
+
+
 
         public int inserir(Noticia noticia)
         {
-
+            int numerodelinhas = 0;
            
             bdConn=conexao.conectar();
-            int numerodelinhas = 0;
             try
             {
                 bdConn.Open();
                 
-                SqlCommand cmd = new SqlCommand("insert into Publicação(titulo,CorpoNoticia,idCategoria,idArea,DtaPublicacao) values(@Titulo,@Publicacao,(select idCategoria from Categoria where idCategoria = @Categoria),(select idArea from Area where idArea = @Area),(GETDATE()));SELECT CAST(scope_identity() AS int)", bdConn);
+                SqlCommand cmd = new SqlCommand("insert into Publicação(Titulo,CorpoNoticia,DtaPublicacao,idCategoria,idArea) Values(@Titulo,@Publicacao,(Select DAY(GETDATE()), MONTH(GETDATE()), YEAR(GETDATE()),CONVERT (time, SYSDATETIME())),(Select idCategoria from Categoria where idCategoria = @Categoria),(Select idArea from Area where idArea = @Area))", bdConn);
                 cmd.Parameters.AddWithValue("@Titulo", noticia.Titulo);
                 cmd.Parameters.AddWithValue("@Publicacao", noticia.Corponoticia);
                 cmd.Parameters.AddWithValue("@Categoria",noticia.categoria.IdCategoria);
                 cmd.Parameters.AddWithValue("@Area", noticia.area.IdArea);
-                noticia.Idnoticia = (Int32)cmd.ExecuteScalar();
-
+                numerodelinhas =cmd.ExecuteNonQuery();
                 bdConn.Close();
-                
-                numerodelinhas = inserirImagem(noticia);
 
             }
             catch(SqlException ex)
@@ -138,7 +128,7 @@ namespace JornalNoticia.Models
             {
                 bdConn.Open();
 
-                SqlCommand cmd = new SqlCommand("select top 3 p.idPublicacao,c.tipCategoria,p.DtaPublicacao,a.NomeArea,p.titulo,p.Corponoticia,i.caminhoimg,i.tipoimg from Publicação p, imagens i,Area a,Categoria c where i.idPublicacao = p.idPublicacao and a.idArea = p.idArea and c.idCategoria = p.idCategoria", bdConn);
+                SqlCommand cmd = new SqlCommand("select top 3 p.idPublicacao,p.titulo,p.Corponoticia,i.caminhoimg,i.tipoimg from Publicação p, imagens i where i.idPublicacao = p.idPublicacao ", bdConn);
                
                 SqlDataReader reader = cmd.ExecuteReader();
                
@@ -146,14 +136,11 @@ namespace JornalNoticia.Models
                 while (reader.Read())
                 {
                     Noticia noticia = new Noticia();
-                    noticia.Idnoticia = Convert.ToInt32(reader["idPublicacao"].ToString());
-                    noticia.Titulo = Convert.ToString(reader["titulo"].ToString());
-                    noticia.area.NomeArea = Convert.ToString(reader["NomeArea"].ToString());
-                    noticia.categoria.TipCategria = Convert.ToString(reader["tipCategoria"].ToString());
-                    noticia.Corponoticia = Noticia.TruncateString(Convert.ToString(reader["Corponoticia"].ToString()),40,Noticia.TruncateOptions.None);
-                    noticia.imagem.caminhoimagem = Convert.ToString(reader["caminhoimg"].ToString());
-                    noticia.imagem.tipoimg = Convert.ToString(reader["tipoimg"].ToString());
-                    noticia.dtaPublicacao = Convert.ToDateTime(reader["DtaPublicacao"].ToString());
+                    noticia.Idnoticia = Convert.ToInt32(reader["p.idPublicacao"].ToString());
+                    noticia.Titulo = Convert.ToString(reader["p.titulo"].ToString());
+                    noticia.Corponoticia = Noticia.TruncateString(Convert.ToString(reader["p.Corponoticia"].ToString()),40,Noticia.TruncateOptions.None);
+                    noticia.imagem.caminhoimagem = Convert.ToString(reader["i.caminhoimg"].ToString());
+                    noticia.imagem.tipoimg = Convert.ToString(reader["i.tipoimg"].ToString());
                     listadados.Add(noticia);
                 }
                 reader.Close();
@@ -180,36 +167,31 @@ namespace JornalNoticia.Models
 
 
         }
-        public List<Categoria> carregandoCategoria()
+        public List<Noticia> carregandoCategoria()
         {
             bdConn = conexao.conectar();
-            List<Categoria> listadados = new List<Categoria>();
+            List<Noticia> listadados = new List<Noticia>();
             try
             {
-
                 bdConn.Open();
+
                 SqlCommand cmd = new SqlCommand("select idCategoria,tipCategoria from Categoria", bdConn);
 
-               // SqlDataReader reader = cmd.ExecuteReader();
+                SqlDataReader reader = cmd.ExecuteReader();
 
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
 
-                
-                adapter.Fill(dt);
-                bdConn.Close();
-
-                foreach (DataRow dr in dt.Rows)
+                while (reader.Read())
                 {
-                    listadados.Add(new Categoria
-                    {
-                        IdCategoria = Convert.ToInt32(dr["idCategoria"]),
-                        TipCategria = Convert.ToString(dr["tipCategoria"])
-                    });
+                    Noticia noticia = new Noticia();
+                    noticia.categoria.IdCategoria = Convert.ToInt32(reader["idCategoria"].ToString());
+                    noticia.categoria.TipCategria = Convert.ToString(reader["tipCategoria"].ToString());
+                    listadados.Add(noticia);
+                    
                 }
+                reader.Close();
 
 
-                
+
 
 
 
@@ -224,33 +206,28 @@ namespace JornalNoticia.Models
             return listadados;
 
         }
-        public List<Area> carregandoArea()
+
+        public IEnumerable<Noticia> carregandoArea()
         {
             bdConn = conexao.conectar();
-            List<Area> listadados = new List<Area>();
+            List<Noticia> listarArea = new List<Noticia>();
             try
             {
-
                 bdConn.Open();
-                SqlCommand cmd = new SqlCommand("select idArea,NomeArea from Area", bdConn);
 
-                // SqlDataReader reader = cmd.ExecuteReader();
+                SqlCommand cmd = new SqlCommand("select NomeArea,idArea from Area", bdConn);
 
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
+                SqlDataReader reader = cmd.ExecuteReader();
 
 
-                adapter.Fill(dt);
-                bdConn.Close();
-
-                foreach (DataRow dr in dt.Rows)
+                while (reader.Read())
                 {
-                    listadados.Add(new Area
-                    {
-                        IdArea = Convert.ToInt32(dr["idArea"]),
-                        NomeArea = Convert.ToString(dr["NomeArea"])
-                    });
+                    Noticia noticia = new Noticia();
+                    noticia.area.NomeArea = Convert.ToString(reader["NomeArea"].ToString());
+                    noticia.area.IdArea = Convert.ToInt32(reader["idArea"].ToString());
+                    listarArea.Add(noticia);
                 }
+                reader.Close();
 
 
 
@@ -265,34 +242,12 @@ namespace JornalNoticia.Models
 
 
             }
-            return listadados;
+            return listarArea;
 
         }
-        public int Usuarios(string usuario,string senha)
-        {
-            bdConn = conexao.conectar();
-            bdConn.Open();
-            int numerodelinhas = 0;
-            try
-            {
-                SqlCommand cmd = new SqlCommand("select usuarioRev,senha from Revisores_Adm where usuarioRev='@usuario' and senha='@senha'", bdConn);
-                cmd.Parameters.AddWithValue("@usuario", usuario);
-                cmd.Parameters.AddWithValue("@senha", senha);
-                numerodelinhas = cmd.ExecuteNonQuery();
-
-                bdConn.Close();
-                
-            }
-            catch(SqlException ex)
-            {
-                string error = ex.Message;
-                bdConn.Close();
-
-            }
-            return numerodelinhas;
 
 
-        }
+
 
 
 

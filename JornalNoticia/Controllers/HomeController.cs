@@ -13,16 +13,20 @@ namespace JornalNoticia.Controllers
     {
         ImagemUpload img = new ImagemUpload();
         private readonly List<Noticia> restaurandovalor ;
-        //private List<Noticia> listacategoria;
-      
+        private readonly List<Noticia> listacategoria;
+        private readonly List<Noticia> listaArea;
+        private readonly List<List<Noticia>> listaPai = new List<List<Noticia>>();
         public HomeController()
         {
-            ConexaoDAO combo = new ConexaoDAO();
-          
-            ViewBag.categoria = new SelectList(combo.carregandoCategoria(), "IdCategoria", "TipCategria", "Selecione um valor");
-            ViewBag.area = new SelectList(combo.carregandoArea(), "IdArea","NomeArea", "Selecione um valor");
             restaurandovalor = new ConexaoDAO().consultarNoticia();
-           
+            listacategoria =  new ConexaoDAO().carregandoCategoria();
+            Categoria categoria = new Categoria();
+            
+            ViewBag.teste = listacategoria.ToList();
+            //listaArea = new ConexaoDAO().carregandoArea();
+            listaPai.Add(restaurandovalor);
+           // listaPai.Add(listacategoria);
+            listaPai.Add(listaArea);
         }
 
         
@@ -30,8 +34,8 @@ namespace JornalNoticia.Controllers
         public ActionResult Index()
         {
 
-            //var ultimasnoticias = listaPai;
-            return View(restaurandovalor);
+            var ultimasnoticias = listaPai;
+            return View(ultimasnoticias);
         }
 
 
@@ -39,16 +43,9 @@ namespace JornalNoticia.Controllers
         
         public ActionResult About()
         {
+            Categoria categoria = new Categoria();
             
-            /*ViewBag.teste = new SelectList
-              (
-                 listacategoria = new ConexaoDAO().carregandoCategoria(),
-
-                  "categoria.IdCategoria",
-                  "categoria.TipCategria"
-               );*/
-    
-
+            
             if (Request.Files.Count > 0)
             {
                
@@ -69,7 +66,7 @@ namespace JornalNoticia.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult File(Noticia noticia)
+        public ActionResult File(Noticia noticia,ImagemUpload imagem,Categoria categoria)
         {
             if (noticia.Titulo != String.Empty)
             {
@@ -96,15 +93,23 @@ namespace JornalNoticia.Controllers
                 }
 
 
+                
+              
+
             }
 
             return View("About");
         }
 
+
+
+
+
+
         [HttpPost]
-        public ActionResult About(Noticia noticia)
+        public ActionResult About(Noticia noticia, ImagemUpload imagem)
         {
-            //var categoria = listaPai;
+            var categoria = listaPai;
 
             if (Request.Files.Count > 0)
             {
@@ -112,7 +117,7 @@ namespace JornalNoticia.Controllers
                 var file = Request.Files[0];
                 string caminhoimagem = Server.MapPath("~/Images/");
                 string valorfinal = img.carregandoimg(file, caminhoimagem);
-                ViewBag.tipoimg = img.tipoimg;
+               
                 ViewBag.Upload = valorfinal;
                 
             }
@@ -128,22 +133,6 @@ namespace JornalNoticia.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
-        [HttpPost]
-        public ActionResult Usuario(string usuario,string senha)
-        {
-            ConexaoDAO verificar = new ConexaoDAO();
-            int numberrow = 0;
-            numberrow = verificar.Usuarios(usuario,senha);
-            if(numberrow>0)
-            {
-               return RedirectToAction("About2", "Banco");
-
-            }
-            else
-            {
-               return View("Index");
-            }
         }
     }
 }
