@@ -8,9 +8,9 @@ namespace JornalNoticia.Models
 {
     public class Categoria
     {
-       
+        [Key]
         public int IdCategoria { get; set; }
-        public string TipCategria { get; set; }
-        public string Situacao { get; set; }
+        public String TipCategria { get; set; }
+        public String Situacao { get; set; }
     }
 }
